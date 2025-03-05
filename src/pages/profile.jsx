@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, updateProfile } from "../store/slices/userSlice";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -64,12 +64,22 @@ const Profile = () => {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition"
-                    >
-                        Update Profile
-                    </button>
+                    <div className="flex flex-col gap-5">
+
+                        <button
+                            type="submit"
+                            className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition"
+                        >
+                            Update Profile
+                        </button>
+                        <Link to="/">
+                            <button
+                                className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                            >
+                                Home
+                            </button>
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

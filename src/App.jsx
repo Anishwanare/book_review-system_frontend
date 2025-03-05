@@ -18,34 +18,36 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <Router>
-      <Toaster position="bottom-right" />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/book-details/:bookId" element={<BookDetails />} />
+    <div className='bg-gradient-to-b from-teal-50 to-orange-50'>
+      <Router>
+        <Toaster position="bottom-right" />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/book-details/:bookId" element={<BookDetails />} />
 
-        {/* profile route protected */}
-        <Route
-          path="/profile/:userId"
-          element={
-            <AuthWrapper>
-              <Profile />
-            </AuthWrapper>
-          }
-        />
+          {/* profile route protected */}
+          <Route
+            path="/profile/:userId"
+            element={
+              <AuthWrapper>
+                <Profile />
+              </AuthWrapper>
+            }
+          />
 
-        {/* Admin Route protected */}
-        <Route
-          path="/dashboard"
-          element={
-            <AuthWrapper role="Admin">
-              <AdminDashboard />
-            </AuthWrapper>
-          }
-        />
-      </Routes>
-    </Router>
+          {/* Admin Route protected */}
+          <Route
+            path="/dashboard"
+            element={
+              <AuthWrapper role="Admin">
+                <AdminDashboard />
+              </AuthWrapper>
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
 
   )
 }

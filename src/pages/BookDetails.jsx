@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteBookById, fetchBookById } from "../store/slices/bookSlice";
 import DetailsSkeleton from "../component/DetailsSkeleton";
 import { getBookReviewById, sendReview } from "../store/slices/reviewSlice";
@@ -56,19 +56,20 @@ const BookDetails = () => {
     };
 
     return (
-        <div className="max-w-6xl m-auto">
-            <h1 className=" mt-10 md:my-10 text-center text-xl md:text-2xl font-semibold text-orange-500 cursor-pointer underline">Book Description </h1>
+        <div className="max-w-6xl m-auto pb-10">
+            <Link to={"/"} className="absolute hover:underline"><p>Home</p></Link>
+            <h1 className=" mt-10 md:py-10 text-center text-xl md:text-2xl font-semibold text-orange-500 cursor-pointer underline">Book Description </h1>
             <hr />
-            <div className="relative my-5 mx-auto p-4 md:p-6 lg:p-8  border border-stone-300 rounded-lg flex flex-col md:flex-row gap-6 mb-10">
+            <div className="bg-white relative py-5 mx-auto p-4 md:p-6 lg:p-8  border border-stone-300 rounded-lg flex flex-col md:flex-row gap-6">
                 <div className="w-full md:w-1/3 flex flex-col justify-center gap-5">
                     <img
                         src={book?.bookImg?.url || "https://via.placeholder.com/200"}
                         alt={book?.name || "Book Cover"}
                         className="w-96 h-64 object-contain rounded-lg shadow-md"
                     />
-                    <div onClick={handleDeleteBook} className="absolute top-0 right-0 text-2xl cursor-pointer p-2 rounded-full hover:bg-red-600 hover:text-white border border-orange-500 m-2">
+                    {user?.role === "Admin" && <div onClick={handleDeleteBook} className="absolute top-0 right-0 text-2xl cursor-pointer p-2 rounded-full hover:bg-red-600 hover:text-white border border-orange-500 m-2">
                         <MdDeleteOutline />
-                    </div>
+                    </div>}
                     <p className="text-xl font-bold text-green-500">Rating: {averageRating} / 5</p>
                     <h2 className="text-2xl md:text-3xl cursor-pointer text-orange-600 font-bold">{book?.name || "Book Title"}</h2>
                     <div>
