@@ -40,6 +40,16 @@ const userSlice = createSlice({
             state.isAuthenticated = false;
             state.error = action.payload?.error
         },
+        updateProfileResponse(state, action) {
+            state.loading = true
+        },
+        updateProfileSuccess(state) {
+            state.loading = false;
+        },
+        updateProfileFailed(state, action) {
+            state.loading = false;
+            state.error = action.payload?.error
+        },
     }
 })
 
@@ -62,7 +72,7 @@ export const login = (userData) => async (dispatch) => {
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Login failed");
+        toast.error(error.response?.data?.message);
     }
 };
 
@@ -85,7 +95,7 @@ export const fetchUserProfile = () => async (dispatch) => {
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Failed to fetch");
+        toast.error(error.response?.data?.message);
     }
 };
 
@@ -101,17 +111,41 @@ export const logout = () => async (dispatch) => {
         );
 
         if (data?.success) {
-            dispatch(userSlice.actions.logoutSuccess(data));
+            dispatch(userSlice.actions.logoutSuccess());
             toast.success(data?.message);
             console.log(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Failed to fetch");
+        toast.error(error.response?.data?.message);
     }
 }
 
+
+export const updateProfile = (userData, userId) => async (dispatch) => {
+    dispatch(userSlice.actions.updateProfileResponse())
+    try {
+        const { data } = await axios.put(
+            `${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/update/${userId}`, userData,
+            {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" }
+            }
+        );
+
+        if (data?.success) {
+            dispatch(userSlice.actions.updateProfileSuccess());
+            dispatch(fetchUserProfile())
+            toast.success(data?.message);
+            console.log(data?.message);
+        }
+    } catch (error) {
+        console.error("Login Error:", error.response?.data || error.message);
+        dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
+        toast.error(error.response?.data?.message);
+    }
+}
 
 
 

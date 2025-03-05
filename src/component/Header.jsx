@@ -71,6 +71,16 @@ const Header = () => {
                                             </button>
                                         </Link>
                                     }
+                                    <Link to={`/profile/${user._id}`}>
+                                        <button
+                                            className="mt-3 w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition"
+                                            onClick={() => {
+                                                setProfileOpen(false);
+                                            }}
+                                        >
+                                            Profile
+                                        </button>
+                                    </Link>
                                     <button
                                         className="mt-3 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
                                         onClick={() => {
