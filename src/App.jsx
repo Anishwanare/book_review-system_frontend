@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux'
 import { fetchUserProfile } from './store/slices/userSlice'
 import BookDetails from './pages/BookDetails'
 import Header from './component/Header'
-import RegisterBook from './Admin/RegisterBook'
 import AdminDashboard from './Admin/AdminDashboard'
 import Profile from './pages/profile'
+import AuthWrapper from './component/AuthWrapper'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -19,13 +19,31 @@ const App = () => {
 
   return (
     <Router>
-      <Toaster position='bottom-right' />
+      <Toaster position="bottom-right" />
       <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/book-details/:bookId' element={<BookDetails />} />
-        <Route path='/dashboard' element={<AdminDashboard />} />
-        <Route path='/profile/:userId' element={<Profile />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/book-details/:bookId" element={<BookDetails />} />
+
+        {/* profile route protected */}
+        <Route
+          path="/profile/:userId"
+          element={
+            <AuthWrapper>
+              <Profile />
+            </AuthWrapper>
+          }
+        />
+
+        {/* Admin Route protected */}
+        <Route
+          path="/dashboard"
+          element={
+            <AuthWrapper role="Admin">
+              <AdminDashboard />
+            </AuthWrapper>
+          }
+        />
       </Routes>
     </Router>
 
