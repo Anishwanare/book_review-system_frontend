@@ -38,7 +38,7 @@ const Login = ({ setLogin }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <form className="bg-white p-6 rounded-lg shadow-md w-96 border border-gray-300 relative" onSubmit={handleSubmit}>
+            <form className="bg-white p-6 rounded-lg shadow-md w-96 border border-gray-300 relative mx-5" onSubmit={handleSubmit}>
                 <button
                     title="Close"
                     className="absolute top-2 right-3 text-gray-600 hover:text-red-600 text-xl"

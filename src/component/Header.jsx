@@ -40,7 +40,7 @@ const Header = () => {
                 {!isAuthenticated ? (
                     <div className="flex gap-5">
                         <button
-                            className="hidden md:block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
+                            className="block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
                             onClick={() => setLogin(true)}
                         >
                             Sign In

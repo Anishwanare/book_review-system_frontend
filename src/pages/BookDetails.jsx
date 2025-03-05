@@ -8,9 +8,11 @@ import DetailsSkeleton from "../component/DetailsSkeleton";
 import { getBookReviewById, sendReview } from "../store/slices/reviewSlice";
 import toast from "react-hot-toast";
 import { MdDeleteOutline } from "react-icons/md";
+import Login from "../component/Login";
 
 const BookDetails = () => {
     const { bookId } = useParams();
+    const [login, setLogin] = useState(false);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState("");
     const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const BookDetails = () => {
 
     const { book, loading: bookLoading } = useSelector((state) => state.Book);
     const { averageRating, totalReviews, loading: reviewLoading, reviews } = useSelector((state) => state.Review);
-    const { user } = useSelector((state) => state.User);
+    const { user, isAuthenticated } = useSelector((state) => state.User);
 
     useEffect(() => {
         if (bookId) {
@@ -96,12 +98,18 @@ const BookDetails = () => {
                             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
                             rows="3"
                         ></textarea>
-                        <button
+                        {isAuthenticated ? <button
                             onClick={handleReviewSubmit}
                             className="mt-2 w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition"
                         >
                             Submit Review
-                        </button>
+                        </button> :
+                            <button
+                                onClick={() => setLogin(true)}
+                                className="mt-2 w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition"
+                            >
+                                Submit Review
+                            </button>}
                     </div>}
 
                     <div className="mt-6 max-h-48 bg-slate-50 p-2 rounded-md">
@@ -126,6 +134,7 @@ const BookDetails = () => {
                     </div>
                 </div>
             </div>
+            {login && !isAuthenticated && <Login setLogin={setLogin} />}
         </div>
     );
 };
