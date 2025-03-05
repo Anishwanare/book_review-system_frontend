@@ -43,6 +43,7 @@ export const uploadBook = (formData) => async (dispatch) => {
         );
         if (data.success) {
             dispatch(uploadBookSlice.actions.uploadBookSuccess());
+            dispatch(myPublishBooks())
         }
         toast.success(data.message);
     } catch (error) {

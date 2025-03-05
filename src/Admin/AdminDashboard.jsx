@@ -57,12 +57,12 @@ const AdminDashboard = () => {
             </aside>
 
             <main className="flex-1 p-6 bg-gray-100 w-full md:ml-72">
-                <div className="flex justify-between items-center md:hidden mb-4">
+                {/* <div className="flex justify-between items-center md:hidden mb-4">
                     <button onClick={() => setSidebarOpen(true)} className="text-gray-800 text-2xl">
                         <FiMenu />
                     </button>
                     <h2 className="text-xl font-bold text-gray-800">Admin Panel</h2>
-                </div>
+                </div> */}
 
                 {loading ? (
                     <p className="text-center text-gray-600">Loading...</p>
