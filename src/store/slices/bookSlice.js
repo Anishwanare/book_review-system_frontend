@@ -33,6 +33,16 @@ const bookSlice = createSlice({
             state.loading = false;
             state.error = action.payload?.error
         },
+        deleteBookRequest(state, action) {
+            state.loading = true
+        },
+        deleteBookSuccess(state, action) {
+            state.loading = false
+        },
+        deleteBookFailed(state, action) {
+            state.loading = false
+            state.error = action.payload?.error
+        },
     }
 })
 
@@ -80,6 +90,28 @@ export const fetchBookById = (bookId) => async (dispatch) => {
         toast.error(error.response?.data?.message || "Failed to fetched books");
     }
 }
+export const deleteBookById = (bookId) => async (dispatch) => {
+    dispatch(bookSlice.actions.deleteBookRequest());
+
+    try {
+        const { data } = await axios.delete(
+            `${import.meta.env.VITE_APP_BASE_URL}/api/v2/book/delete/${bookId}`,
+            {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" }
+            }
+        );
+
+        if (data?.success) {
+            dispatch(bookSlice.actions.deleteBookSuccess());
+            dispatch(fetchBooks())
+            toast.success(data?.message);
+        }
+    } catch (error) {
+        dispatch(bookSlice.actions.deleteBookFailed({ error: error.response?.data?.message }));
+        toast.error(error.response?.data?.message || "Failed to delete book");
+    }
+};
 
 
 export default bookSlice.reducer

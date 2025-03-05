@@ -10,7 +10,7 @@ const Books = () => {
     if (loading) {
         return (
             <div className='max-w-6xl mx-auto py-6 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-                {Array.from({ length: 8 }).map(() => <Skeleton />)}
+                {Array.from({ length: 8 }).map((_,ind) => <Skeleton key={ind} />)}
             </div>
         )
     }
