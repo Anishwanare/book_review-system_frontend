@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <Router>
-      <Toaster position='top-center' />
+      <Toaster position='bottom-right' />
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
