@@ -11,6 +11,15 @@ const userSlice = createSlice({
         error: null
     },
     reducers: {
+        registerResponse(state, action) {
+            state.loading = true;
+        },
+        registerSuccess(state, action) {
+            state.loading = false;
+        },
+        registerFailed(state, action) {
+            state.loading = false;
+        },
         loginResponse(state, action) {
             state.loading = true;
         },
@@ -53,6 +62,28 @@ const userSlice = createSlice({
     }
 })
 
+export const register = (userData) => async (dispatch) => {
+    dispatch(userSlice.actions.registerResponse());
+    try {
+        const { data } = await axios.post(
+            `${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/register`,
+            userData,
+            {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" }
+            }
+        );
+
+        if (data?.success) {
+            dispatch(userSlice.actions.registerSuccess());
+            toast.success(data?.message);
+        }
+    } catch (error) {
+        console.error("Login Error:", error.response?.data || error.message);
+        dispatch(userSlice.actions.registerFailed({ error: error.response?.data?.message }));
+        toast.error(error.response?.data?.message);
+    }
+};
 export const login = (userData) => async (dispatch) => {
     dispatch(userSlice.actions.loginResponse());
     try {

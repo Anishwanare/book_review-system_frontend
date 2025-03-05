@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/slices/userSlice";
+import { login, register } from "../store/slices/userSlice";
 
 const Login = ({ setLogin }) => {
     const [email, setEmail] = useState("anishwanare@gmail.com");
@@ -14,15 +14,24 @@ const Login = ({ setLogin }) => {
     const { loading } = useSelector((state) => state.User)
 
 
-    const handleSubmit = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
         const formdata = new FormData()
-        if (showSignup) {
-            formdata.append('name', name)
-        }
+
         formdata.append('email', email)
         formdata.append('password', password)
         const response = dispatch(login(formdata))
+        response.then(() => {
+            setLogin(prev => !prev)
+        })
+    }
+    const handleRegister = (e) => {
+        e.preventDefault()
+        const formdata = new FormData()
+        formdata.append('name', name)
+        formdata.append('email', email)
+        formdata.append('password', password)
+        const response = dispatch(register(formdata))
         response.then(() => {
             setLogin(prev => !prev)
         })
@@ -38,7 +47,7 @@ const Login = ({ setLogin }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <form className="bg-white p-6 rounded-lg shadow-md w-96 border border-gray-300 relative mx-5" onSubmit={handleSubmit}>
+            <form className="bg-white p-6 rounded-lg shadow-md w-96 border border-gray-300 relative mx-5" onSubmit={!showSignup ? handleLogin : handleRegister}>
                 <button
                     title="Close"
                     className="absolute top-2 right-3 text-gray-600 hover:text-red-600 text-xl"
