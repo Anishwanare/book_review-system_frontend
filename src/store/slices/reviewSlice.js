@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import //toast from "react-hot-//toast";
 
 const reviewSlice = createSlice({
     name: "review",
@@ -43,10 +43,10 @@ export const getBookReviewById = (id) => async (dispatch) => {
     try {
         const { data } = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/api/v2/book/average-book-review/${id}`);
         dispatch(reviewSlice.actions.fetchReviewSuccess(data));
-        toast.success(data.message);
+        //toast.success(data.message);
     } catch (error) {
         dispatch(reviewSlice.actions.fetchReviewFailure({ error: error.message }));
-        toast.error("Failed to fetch reviews");
+        //toast.error("Failed to fetch reviews");
     }
 };
 
@@ -61,10 +61,10 @@ export const sendReview = (formData, id) => async (dispatch) => {
         });
         dispatch(reviewSlice.actions.uploadReviewSuccess(response.data));
         dispatch(getBookReviewById(id))
-        toast.success(response.data?.message);
+        //toast.success(response.data?.message);
     } catch (error) {
         dispatch(reviewSlice.actions.uploadReviewFailed({ error: error.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 }
 

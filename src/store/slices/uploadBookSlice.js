@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import //toast from "react-hot-//toast";
 
 const uploadBookSlice = createSlice({
     name: "uploadBook",
@@ -45,9 +45,9 @@ export const uploadBook = (formData) => async (dispatch) => {
             dispatch(uploadBookSlice.actions.uploadBookSuccess());
             dispatch(myPublishBooks())
         }
-        toast.success(data.message);
+        //toast.success(data.message);
     } catch (error) {
-        toast.error("Failed to upload book");
+        //toast.error("Failed to upload book");
         dispatch(
             uploadBookSlice.actions.uploadBookFailed({
                 error: error?.response?.data?.error,
@@ -69,9 +69,9 @@ export const myPublishBooks = () => async (dispatch) => {
         if (data.success) {
             dispatch(uploadBookSlice.actions.myBooksSuccess(data));
         }
-        toast.success(data.message);
+        //toast.success(data.message);
     } catch (error) {
-        toast.error("Failed to upload book");
+        //toast.error("Failed to upload book");
         dispatch(
             uploadBookSlice.actions.myBooksFailed({
                 error: error?.response?.data?.error,

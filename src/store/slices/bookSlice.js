@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 const bookSlice = createSlice({
     name: "book",
@@ -60,12 +60,12 @@ export const fetchBooks = () => async (dispatch) => {
 
         if (data?.success) {
             dispatch(bookSlice.actions.fetchBooksSuccess(data));
-            toast.success(data?.message);
+            //toast.success(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(bookSlice.actions.fetchBooksFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Failed to fetched books");
+        //toast.error(error.response?.data?.message || "Failed to fetched books");
     }
 }
 
@@ -82,12 +82,12 @@ export const fetchBookById = (bookId) => async (dispatch) => {
 
         if (data?.success) {
             dispatch(bookSlice.actions.fetchSingleBookSuccess(data));
-            toast.success(data?.message);
+            //toast.success(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(bookSlice.actions.fetchSingleBookFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Failed to fetched books");
+        //toast.error(error.response?.data?.message || "Failed to fetched books");
     }
 }
 export const deleteBookById = (bookId) => async (dispatch) => {
@@ -105,11 +105,11 @@ export const deleteBookById = (bookId) => async (dispatch) => {
         if (data?.success) {
             dispatch(bookSlice.actions.deleteBookSuccess());
             dispatch(fetchBooks())
-            toast.success(data?.message);
+            //toast.success(data?.message);
         }
     } catch (error) {
         dispatch(bookSlice.actions.deleteBookFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message || "Failed to delete book");
+        //toast.error(error.response?.data?.message || "Failed to delete book");
     }
 };
 

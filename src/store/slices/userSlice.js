@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
-import toast from "react-hot-toast";
+// import //toast from "react-hot-//toast";
 
 const userSlice = createSlice({
     name: "User",
@@ -76,12 +76,12 @@ export const register = (userData) => async (dispatch) => {
 
         if (data?.success) {
             dispatch(userSlice.actions.registerSuccess());
-            toast.success(data?.message);
+            //toast.success(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.registerFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 };
 export const login = (userData) => async (dispatch) => {
@@ -98,12 +98,12 @@ export const login = (userData) => async (dispatch) => {
 
         if (data?.success) {
             dispatch(userSlice.actions.loginSuccess(data));
-            toast.success(data?.message);
+            //toast.success(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 };
 
@@ -120,13 +120,13 @@ export const fetchUserProfile = () => async (dispatch) => {
 
         if (data?.success) {
             dispatch(userSlice.actions.loginSuccess(data));
-            toast.success(data?.message);
+            //toast.success(data?.message);
             console.log(data?.message); //why i get 2 times message
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 };
 
@@ -143,13 +143,13 @@ export const logout = () => async (dispatch) => {
 
         if (data?.success) {
             dispatch(userSlice.actions.logoutSuccess());
-            toast.success(data?.message);
+            //toast.success(data?.message);
             console.log(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 }
 
@@ -168,13 +168,13 @@ export const updateProfile = (userData, userId) => async (dispatch) => {
         if (data?.success) {
             dispatch(userSlice.actions.updateProfileSuccess());
             dispatch(fetchUserProfile())
-            toast.success(data?.message);
+            //toast.success(data?.message);
             console.log(data?.message);
         }
     } catch (error) {
         console.error("Login Error:", error.response?.data || error.message);
         dispatch(userSlice.actions.loginFailed({ error: error.response?.data?.message }));
-        toast.error(error.response?.data?.message);
+        //toast.error(error.response?.data?.message);
     }
 }
 
